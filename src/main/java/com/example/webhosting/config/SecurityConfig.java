@@ -37,6 +37,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/", "/register", "/login", "/error").permitAll()
                 .requestMatchers("/h2-console/**").permitAll() // H2 콘솔 접근 허용
+                .requestMatchers("/host/**").authenticated() // 호스트 관련 API 명시적 허용
+                .requestMatchers("/host").authenticated()    // 호스트 루트 경로도 허용
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions().sameOrigin()) // H2 콘솔용
